@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -17,15 +19,19 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class Activity2 extends AppCompatActivity {
-    private Button right;
-    private Button left;
-    private Button forward;
-    private Button backward;
+    private Button rightBtn;
+    private Button leftBtn;
+    private Button forwardBtn;
+    private Button backwardBtn;
 
     PrintWriter pw;
-
+    MessageSender messageSender = MessageSender.getinstance();
+    private final ScheduledExecutorService[] scheduledExecutorService = new ScheduledExecutorService[4];
+    ScheduledExecutorService scheduledExecutorService1;
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,39 +41,63 @@ public class Activity2 extends AppCompatActivity {
         //String vPath = "android.resource://" + getPackageName() + "/raw/boids";
 //        String vPath = "https://www.google.com";
 
-        String vPath = "http://10.49.10.99:8000";
+//        String vPath = "http://10.49.10.99:8000";
+//
+//        WebView webView = findViewById(R.id.wv);
+//        webView.setWebViewClient(new WebViewClient());
+//        webView.loadUrl(vPath);
 
-        WebView webView = findViewById(R.id.wv);
-        webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl(vPath);
+        String ipAddress = "10.48.103.25";
+        String port = "5000";
 
-        forward = (Button) findViewById(R.id.button1);
-        left = (Button) findViewById(R.id.button2);
-        backward = (Button) findViewById(R.id.button4);
-        right = (Button) findViewById(R.id.button3);
+        MessageSender messageSender = new MessageSender(ipAddress, port);
 
-        forward.setOnClickListener(new View.OnClickListener() {
+        forwardBtn = (Button) findViewById(R.id.button1);
+        leftBtn = (Button) findViewById(R.id.button2);
+        backwardBtn = (Button) findViewById(R.id.button4);
+        rightBtn = (Button) findViewById(R.id.button3);
+
+        forwardBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                String msg;
-                try {
-                    Socket s = new Socket("10.49.10.99", 5000);
-                    pw = new PrintWriter(s.getOutputStream());
-                    pw.println("123");
-                    System.out.println("123");
-                    pw.flush();
-                    InputStreamReader ir = new InputStreamReader(s.getInputStream());
-                    BufferedReader br = new BufferedReader(ir);
-                    msg = br.readLine();
-                    System.out.println(msg);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                    messageSender.sendWithNoReply(1);
+                else if (motionEvent.getAction() == MotionEvent.ACTION_UP)
+                    messageSender.sendWithNoReply(0);
+                return false;
             }
         });
 
-
-
+        leftBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                    messageSender.sendWithNoReply(2);
+                else if (motionEvent.getAction() == MotionEvent.ACTION_UP)
+                    messageSender.sendWithNoReply(0);
+                return false;
+            }
+        });
+        rightBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                    messageSender.sendWithNoReply(3);
+                else if (motionEvent.getAction() == MotionEvent.ACTION_UP)
+                    messageSender.sendWithNoReply(0);
+                return false;
+            }
+        });
+        backwardBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                    messageSender.sendWithNoReply(4);
+                else if (motionEvent.getAction() == MotionEvent.ACTION_UP)
+                    messageSender.sendWithNoReply(0);
+                return false;
+            }
+        });
     }
+
 }

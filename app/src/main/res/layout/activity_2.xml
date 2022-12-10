@@ -38,6 +38,7 @@
             android:id="@+id/button4"
             android:layout_width="137dp"
             android:layout_height="match_parent"
+            android:backgroundTint="#1890F0"
             android:text="BACKWARD" />
     </TableRow>
 
@@ -56,6 +57,7 @@
             android:id="@+id/button2"
             android:layout_width="137dp"
             android:layout_height="match_parent"
+            android:backgroundTint="#1890F0"
             android:text="LEFT" />
 
         <TextView
@@ -67,6 +69,7 @@
             android:id="@+id/button3"
             android:layout_width="137dp"
             android:layout_height="match_parent"
+            android:backgroundTint="#1890F0"
             android:text="RIGHT" />
 
     </TableRow>
@@ -91,6 +94,7 @@
             android:id="@+id/button1"
             android:layout_width="137dp"
             android:layout_height="match_parent"
+            android:backgroundTint="#1890F0"
             android:text="FORWAED" />
     </TableRow>
 
