@@ -11,6 +11,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.MediaController;
+import android.widget.TextView;
 import android.widget.VideoView;
 
 import java.io.BufferedReader;
@@ -26,6 +27,9 @@ public class Activity2 extends AppCompatActivity {
     private Button leftBtn;
     private Button forwardBtn;
     private Button backwardBtn;
+    private String ipAddress = " ";
+    private String port = " ";
+    private TextView tv1;
 
     PrintWriter pw;
     MessageSender messageSender = MessageSender.getinstance();
@@ -37,6 +41,14 @@ public class Activity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2);
+
+        if (getIntent().hasExtra("com.example.a5725finalproject")){
+            System.out.println("get fwefafw");
+            ipAddress = getIntent().getExtras().getString("ip");
+            port = getIntent().getExtras().getString("port");
+            tv1 = (TextView) findViewById(R.id.tv1) ;
+            tv1.setText(ipAddress + ":" + port);
+        }
 
         //String vPath = "android.resource://" + getPackageName() + "/raw/boids";
         //String vPath = "https://www.google.com";
@@ -51,7 +63,7 @@ public class Activity2 extends AppCompatActivity {
 
         webView.setWebViewClient(new WebViewClient());
 
-        String ipAddress = "10.48.103.25";
+        String ipAddress = "10.49.10.99";
         String port = "5000";
 
         MessageSender messageSender = new MessageSender(ipAddress, port);

@@ -7,12 +7,15 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private int i = 0;
     private String ipAdress = "null";
     private String port = "null";
+    private EditText et1;
+    private EditText et2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         TextView tv1;
@@ -43,6 +46,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //ipAdress = ()
+                et1 = (EditText) findViewById(R.id.Et1);
+                et2 = (EditText) findViewById(R.id.Et2);
+                ipAdress = et1.getText().toString();
+                port = et2.getText().toString();
+                Intent startIntent = new Intent(getApplicationContext(), Activity2.class);
+                startIntent.putExtra("com.example.a5725finalproject", ipAdress);
+                startIntent.putExtra("com.example.a5725finalproject", port);
             }
         });
     }
