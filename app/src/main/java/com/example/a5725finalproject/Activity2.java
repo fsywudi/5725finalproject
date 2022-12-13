@@ -39,13 +39,17 @@ public class Activity2 extends AppCompatActivity {
         setContentView(R.layout.activity_2);
 
         //String vPath = "android.resource://" + getPackageName() + "/raw/boids";
-//        String vPath = "https://www.google.com";
+        //String vPath = "https://www.google.com";
 
-//        String vPath = "http://10.49.10.99:8000";
-//
-//        WebView webView = findViewById(R.id.wv);
-//        webView.setWebViewClient(new WebViewClient());
-//        webView.loadUrl(vPath);
+        String vPath = "http://10.49.10.99:8000";
+
+        WebView webView = findViewById(R.id.wv);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl(vPath);
+        webView.getSettings().setBuiltInZoomControls(true);
+        webView.getSettings().setUseWideViewPort(true);
+
+        webView.setWebViewClient(new WebViewClient());
 
         String ipAddress = "10.48.103.25";
         String port = "5000";
