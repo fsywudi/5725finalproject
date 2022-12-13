@@ -55,7 +55,7 @@
 
         <EditText
             android:id="@+id/Et1"
-            android:layout_width="196dp"
+            android:layout_width="160dp"
             android:layout_height="match_parent"
             android:ems="10"
             android:inputType="textPersonName" />
@@ -69,7 +69,7 @@
 
         <EditText
             android:id="@+id/Et2"
-            android:layout_width="42dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:ems="10"
             android:inputType="textPersonName" />

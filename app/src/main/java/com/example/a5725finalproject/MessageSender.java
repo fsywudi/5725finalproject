@@ -27,54 +27,16 @@ public class MessageSender{
         MessageSender.messageSender = messageSender;
     }
 
-    public static String send(int message){
-        String messageBack = "None";
-        try {
-            Socket s = new Socket(ipAddress, Integer.parseInt(port));
-            PrintWriter pw = new PrintWriter(s.getOutputStream());
-            pw.println(message);
-            pw.flush();
-            InputStreamReader ir = new InputStreamReader(s.getInputStream());
-            BufferedReader br = new BufferedReader(ir);
-            messageBack =  br.readLine();
-            /*
-            s.close();
-            pw.close();
-
-             */
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        return messageBack;
+    public void updateConnectionInfo(String ip, String pt){
+        this.ipAddress = ip;
+        this.port = pt;
     }
-
-    public static String send(String message){
-        String messageBack = "None";
-        try {
-            Socket s = new Socket(ipAddress, Integer.parseInt(port));
-            PrintWriter pw = new PrintWriter(s.getOutputStream());
-            pw.println(message + "\n");
-            pw.flush();
-            InputStreamReader ir = new InputStreamReader(s.getInputStream());
-            BufferedReader br = new BufferedReader(ir);
-            messageBack =  br.readLine();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        return messageBack;
-    }
-
 
     public void sendWithNoReply(int message){
         MessageTask messageTask = new MessageTask(ipAddress, port, message);
         new Thread(messageTask).start();
     }
 
-
-    public void disConnect() throws IOException {
-        // s.close();
-        // pw.close();
-    }
 }
 class MessageTask implements Runnable{
     String ipAddress, port;
